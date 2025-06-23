@@ -284,3 +284,6 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+# Spotify token cache
+token.json
