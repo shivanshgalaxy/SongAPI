@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from services.refactor import download_song
 
 app = FastAPI()
 
@@ -8,11 +9,8 @@ items = []
 async def root():
     return {"message": "Hello World"}
 
+@app.get("/download_song/{song_name}")
+async def say_hello(song_name: str):
+    file_path = download_song(song_name)
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-@app.post("/items")
-def create_item(item: str):
-    items.append(item)
-    return items
+    return {"message": f"You download {song_name}"}

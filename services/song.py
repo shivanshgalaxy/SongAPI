@@ -61,7 +61,7 @@ def download_video(token, url, song_id):
     translation_table = str.maketrans({char: None for char in special_characters + ' '})
     title = stream.title.translate(translation_table)
     output_path = f"/home/sh/Music/"
-    filepath = stream.download(output_path, title + ".m4a")
+    filepath = stream.download_track(output_path, title + ".m4a")
     if song_id:
         data = get_metadata(token, song_id)
         add_metadata(filepath, data)
