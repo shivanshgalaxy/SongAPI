@@ -16,3 +16,9 @@ class SpotifyDownloader(UrlDownloader):
         # download logic...
 
         return f"spotify_{url[-10:]}.mp3"
+
+    def get_type(self, url: str) -> str:
+        pass
+
+    def extract_track_from_playlist(self, url: str) -> list[str]:
+        pass

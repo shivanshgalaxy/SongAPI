@@ -9,3 +9,6 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+GET http://127.0.0.1:8000/download_song/https://www.youtube.com/watch?v=HVDjyx8FqG4&list=RDHVDjyx8FqG4
+Accept: application/json

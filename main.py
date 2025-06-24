@@ -7,7 +7,7 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-@app.get("/download_song/{song_name}")
+@app.get("/download_song")
 async def say_hello(song_name: str):
     file_path = download_song(song_name)
 

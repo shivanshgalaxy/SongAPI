@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from services.downloader_manager import DownloaderManager
-from services.interfaces.downloader_interfaces import SearchableDownloader
+from services.downloaders.query_downloader import QueryDownloader
 from services.spotify_auth import get_token
 from services.downloaders.spotify_downloader import SpotifyDownloader
 from services.downloaders.youtube_downloader import YouTubeDownloader
@@ -11,7 +11,7 @@ from services.downloaders.youtube_downloader import YouTubeDownloader
 load_dotenv()
 def download_song(song_name: str) -> str | None:
     url_downloaders = [SpotifyDownloader(), YouTubeDownloader()]
-    searchable_downloaders = [SearchableDownloader()]
+    searchable_downloaders = [QueryDownloader()]
     manager = DownloaderManager(url_downloaders, searchable_downloaders)
     try:
         path = manager.download(song_name)
@@ -31,3 +31,4 @@ def get_metadata(song_name: str):
         "Authorization": f"Bearer {token}"
     }
 
+download_song("https://www.youtube.com/watch?v=UHygeI9hcIs")
