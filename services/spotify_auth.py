@@ -48,5 +48,5 @@ def get_token(client_id: str, client_secret: str) -> str:
     token = json_result.get("access_token")
     if not token:
         raise ValueError("Failed to retrieve access token from Spotify API.")
-    save_token(token, json_result.get("expires_in", 3600))
+    save_token(token, json_result.get("expires_in", 3600)) # Token expires in 1 hour (default value)
     return token

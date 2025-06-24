@@ -287,3 +287,6 @@ pyrightconfig.json
 
 # Spotify token cache
 token.json
+
+#documentation
+ytdlp_docstring.txt

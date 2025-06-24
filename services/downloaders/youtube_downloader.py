@@ -10,7 +10,7 @@ class YouTubeDownloader(UrlDownloader):
         print(f"Downloading YouTube video: {url}")
         # download logic...
         ydl_opts = {
-            'format': 'bestaudio/best',
+            'format': 'bestaudio',
             'outtmpl': '%(title)s.%(ext)s',  # Output file name template
             'quiet': False,  # Set to True to suppress output
             'postprocessors': [{
@@ -23,4 +23,10 @@ class YouTubeDownloader(UrlDownloader):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
-        return f"youtube_{url[-10:]}.mp4"
+        return "Download completed for YouTube video: " + url
+
+    def get_type(self, url: str) -> str:
+        pass
+
+    def extract_track_from_playlist(self, url: str) -> list[str]:
+        pass

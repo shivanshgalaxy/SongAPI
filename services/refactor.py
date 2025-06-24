@@ -3,8 +3,7 @@ from dotenv import load_dotenv
 
 from services.downloader_manager import DownloaderManager
 from services.interfaces.downloader_interfaces import SearchableDownloader
-from spotify_auth import get_token
-from utils.url_utils import is_valid_url
+from services.spotify_auth import get_token
 from services.downloaders.spotify_downloader import SpotifyDownloader
 from services.downloaders.youtube_downloader import YouTubeDownloader
 

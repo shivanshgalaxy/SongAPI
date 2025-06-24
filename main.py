@@ -3,8 +3,6 @@ from services.refactor import download_song
 
 app = FastAPI()
 
-items = []
-
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
