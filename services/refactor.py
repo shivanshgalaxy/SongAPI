@@ -1,7 +1,5 @@
-import json
 import os
 from dotenv import load_dotenv
-
 from services.downloader_manager import DownloaderManager
 from services.downloaders.query_downloader import QueryDownloader
 from services.downloaders.spotify_metadata_provider import SpotifyMetadataProvider
