@@ -15,13 +15,6 @@ class QueryDownloader(SearchableDownloader):
     def download_track(self, query: str) -> str:
         yt_music_api = YTMusic()
         search_results = yt_music_api.search(query, limit=1, filter="songs")
-        print(json.dumps(search_results, indent=4))
         video_id = search_results[0]["videoId"]
         youtube_url = f"https://www.youtube.com/watch?v={video_id}"
         return self.youtube_downloader.download_track(youtube_url)
-
-
-# Placeholder, should be replaced with actual download logic
-yt_downloader = YouTubeDownloader()
-downloader = QueryDownloader(yt_downloader)
-downloader.download_track("Seori i want to cry")

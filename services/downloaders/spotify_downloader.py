@@ -1,7 +1,6 @@
 import re
-import os
 from dotenv import load_dotenv
-
+import json
 from services.interfaces.metadata_providers_interface import MetadataProvider
 from services.interfaces.downloader_interfaces import UrlDownloader, SearchableDownloader
 
@@ -16,9 +15,10 @@ class SpotifyDownloader(UrlDownloader):
         return re.match(r"^https?://open\.spotify\.com/", url) is not None
 
     def download_track(self, url: str) -> str:
-        song_data = self.metadata_provider.get_metadata(url)
-        song_title = song_data[0]["title"]
-        song_artist = song_data[0]["artists"][0]["name"]
+        song_data = self.metadata_provider.get_metadata("tracks", url)
+        print(json.dumps(song_data, indent=4))
+        song_artist = song_data["artists"][0]["name"]
+        song_title = song_data["name"]
         return self.query_downloader.download_track(f"{song_artist} {song_title}")
 
     def get_type(self, url: str) -> str:
