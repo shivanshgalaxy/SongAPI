@@ -1,8 +1,10 @@
+import json
 import os
 from dotenv import load_dotenv
 
 from services.downloader_manager import DownloaderManager
 from services.downloaders.query_downloader import QueryDownloader
+from services.downloaders.spotify_metadata_provider import SpotifyMetadataProvider
 from services.spotify_auth import get_token
 from services.downloaders.spotify_downloader import SpotifyDownloader
 from services.downloaders.youtube_downloader import YouTubeDownloader
@@ -31,4 +33,5 @@ def get_metadata(song_name: str):
         "Authorization": f"Bearer {token}"
     }
 
-download_song("https://www.youtube.com/watch?v=UHygeI9hcIs")
+    metadata = SpotifyMetadataProvider(token, "track", song_name)
+    print(json.dumps(metadata, indent=2))

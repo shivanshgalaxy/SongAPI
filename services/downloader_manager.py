@@ -1,6 +1,6 @@
 from typing import List
 from services.interfaces.downloader_interfaces import UrlDownloader, SearchableDownloader
-from utils.url_utils import is_valid_url
+from utils.validation_utils import is_valid_url
 
 
 class DownloaderManager:
