@@ -12,26 +12,19 @@ from services.downloaders.youtube_downloader import YouTubeDownloader
 
 load_dotenv()
 def download_song(song_name: str) -> str | None:
-    url_downloaders = [SpotifyDownloader(), YouTubeDownloader()]
-    searchable_downloaders = [QueryDownloader()]
+    client_id = os.getenv("SPOTIFY_CLIENT_ID")
+    client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
+    token = get_token(client_id, client_secret)
+    spotify_metadata_provider = SpotifyMetadataProvider(token)
+    youtube_downloader = YouTubeDownloader()
+    query_downloader = QueryDownloader(youtube_downloader)
+    spotify_downloader = SpotifyDownloader(spotify_metadata_provider, query_downloader)
+
+    url_downloaders = [spotify_downloader, youtube_downloader]
+    searchable_downloaders = [query_downloader]
     manager = DownloaderManager(url_downloaders, searchable_downloaders)
     try:
         path = manager.download(song_name)
         return path
     except Exception as e:
         return str(e)
-
-
-def get_metadata(song_name: str):
-    client_id = os.getenv("SPOTIFY_CLIENT_ID")
-    client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
-    if not client_id or not client_secret:
-        raise EnvironmentError("Please set SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET in your .env file.")
-
-    token = get_token(client_id, client_secret)
-    headers = {
-        "Authorization": f"Bearer {token}"
-    }
-
-    metadata = SpotifyMetadataProvider(token, "track", song_name)
-    print(json.dumps(metadata, indent=2))

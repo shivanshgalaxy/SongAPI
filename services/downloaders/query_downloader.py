@@ -1,6 +1,3 @@
-import json
-
-from services.downloaders.youtube_downloader import YouTubeDownloader
 from services.interfaces.downloader_interfaces import SearchableDownloader, UrlDownloader
 from ytmusicapi import YTMusic
 
