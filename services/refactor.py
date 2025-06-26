@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from services.downloader_manager import DownloaderManager
 from services.downloaders.query_downloader import QueryDownloader
-from services.downloaders.spotify_metadata_provider import SpotifyMetadataProvider
+from services.metadata.spotify_metadata_provider import SpotifyMetadataProvider
 from services.spotify_auth import get_token
 from services.downloaders.spotify_downloader import SpotifyDownloader
 from services.downloaders.youtube_downloader import YouTubeDownloader
@@ -23,6 +23,8 @@ def download_song(song_name: str) -> str | None:
     manager = DownloaderManager(url_downloaders, searchable_downloaders)
     try:
         path = manager.download(song_name)
-        return path
     except Exception as e:
         return str(e)
+
+
+    return path
