@@ -1,5 +1,4 @@
 from requests import get
-import json
 
 class SpotifySearchService:
     def __init__(self, token: str):

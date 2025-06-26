@@ -293,3 +293,9 @@ ytdlp_docstring.txt
 
 # Downloaded songs
 *.mp3
+*.jpg
+*.jpeg
+*.webm
+*.mp4
+*.m4a
+*.png
