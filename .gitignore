@@ -299,3 +299,11 @@ ytdlp_docstring.txt
 *.mp4
 *.m4a
 *.png
+
+# Apifox Helper cache
+.idea/.cache/.Apifox_Helper
+.idea/ApifoxUploaderProjectSetting.xml
+
+*.iml
+misc.xml
+modules.xml
