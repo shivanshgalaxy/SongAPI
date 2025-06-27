@@ -54,5 +54,3 @@ def download_song(song_name: str) -> str | None:
     metadata_manager.write_metadata(path, metadata)
     metadata_manager.write_album_art(path, str(album_art_path))
     return path
-
-download_song("https://open.spotify.com/track/7gHs73wELdeycvS48JfIos")
