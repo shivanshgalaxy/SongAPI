@@ -10,6 +10,7 @@ class QueryDownloader(SearchableDownloader):
         return True  # Placeholder, should be replaced with actual logic
 
     def download_track(self, query: str) -> str:
+        print(f"In QueryDownloader downloading track for query: {query}")
         yt_music_api = YTMusic()
         search_results = yt_music_api.search(query, limit=1, filter="songs")
         video_id = search_results[0]["videoId"]

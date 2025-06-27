@@ -1,12 +1,12 @@
 from requests import get
 import sys
 
-class SpotifySearchService:
+class SpotifyFindTrackID:
     def __init__(self, token: str):
         self.token = token
         self.URL = "https://api.spotify.com/v1/search"
 
-    def search_track_id(self, track: str, artist: str) -> str | None:
+    def find_track_id(self, track: str = None, artist: str = None) -> str | None:
         params = {
             "q": f"track:{track} artist:{artist}",
             "type": "track",
