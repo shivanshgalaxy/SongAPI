@@ -299,6 +299,8 @@ ytdlp_docstring.txt
 *.mp4
 *.m4a
 *.png
+metadata_dump.json
+track_metadata_schema.json
 
 # Apifox Helper cache
 .idea/.cache/.Apifox_Helper

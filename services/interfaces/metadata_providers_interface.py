@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class MetadataProvider(ABC):
     @abstractmethod
-    def get_metadata(self, api_endpoint: str, query: str) -> dict:
+    def get_metadata(self, query: str) -> dict:
         """
         Given a URL or query, returns a metadata dict with fields like:
         - title
