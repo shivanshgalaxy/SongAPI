@@ -4,10 +4,9 @@ from requests import get
 from services.metadata.spotify_song_id import SongIDService
 
 class SpotifyMetadataProvider(MetadataProvider):
-    def __init__(self, token: str, search_service: SongIDService):
+    def __init__(self, token: str):
         self.token = token
         self.URL = "https://api.spotify.com/v1"
-        self.search_service = search_service
 
     def get_metadata(self, track_id: str) -> dict:
         query_url = f"{self.URL}/tracks/{track_id}"

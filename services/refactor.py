@@ -1,15 +1,20 @@
 import os
 import re
+
+import requests
 from dotenv import load_dotenv
 from services.downloader_manager import DownloaderManager
 from services.downloaders.query import QueryDownloader
 from services.metadata.metadata_manger import MetadataManager
 from services.metadata.metadata_writer import MetadataWriter
 from services.metadata.spotify_metadata_provider import SpotifyMetadataProvider
+from services.metadata.youtube_metadata_provider import YoutubeMetadataProvider
 from services.spotify_auth import get_token
 from services.downloaders.spotify import SpotifyDownloader
 from services.downloaders.youtube import YouTubeDownloader
 from services.metadata.spotify_song_id import SongIDService
+from PIL import Image
+from io import BytesIO
 
 load_dotenv()
 
@@ -17,7 +22,11 @@ def download_song(song_name: str) -> str | None:
     client_id = os.getenv("SPOTIFY_CLIENT_ID")
     client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
     token = get_token(client_id, client_secret)
+
     spotify_metadata_provider = SpotifyMetadataProvider(token)
+    youtube_metadata_provider = YoutubeMetadataProvider()
+
+
     youtube_downloader = YouTubeDownloader()
     query_downloader = QueryDownloader(youtube_downloader)
     spotify_downloader = SpotifyDownloader(spotify_metadata_provider, query_downloader)
@@ -42,9 +51,18 @@ def download_song(song_name: str) -> str | None:
         return str(e)
 
     metadata_writer = MetadataWriter()
-    metadata_manager = MetadataManager()
-    
+    metadata_manager = MetadataManager([spotify_metadata_provider, youtube_metadata_provider], metadata_writer)
+
+    metadata = metadata_manager.get_metadata(track_id if track_id else song_name)
+    album_art_response = requests.get(metadata["thumbnail"])
+    album_art = album_art_response.content
+
+    album_art_img = Image.open(BytesIO(album_art)).convert("RGB")
+    album_art_path = os.path.splitext(path)[0] + "_cover.jpg"
+    album_art_img.save(album_art_path, format="JPEG")
+
+    metadata_manager.write_metadata(path, metadata)
+    metadata_manager.write_album_art(path, album_art_path)
+
     return path
-
-
 
