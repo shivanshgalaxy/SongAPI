@@ -13,6 +13,7 @@ class MetadataWriter:
 
     def write_album_art(self, filepath: str, image_path: str) -> None:
         audio = MP3(filepath)
+        print(image_path)
         with open(image_path, 'rb') as img:
             audio.tags.add(
                 APIC(

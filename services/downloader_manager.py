@@ -1,6 +1,6 @@
 from typing import List
 from services.interfaces.downloader import UrlDownloader, SearchableDownloader
-from utils.validation_utils import is_valid_url
+from utils.validation_utils import is_url
 
 
 class DownloaderManager:
@@ -9,7 +9,7 @@ class DownloaderManager:
         self.searchable_downloaders = searchable_downloaders
 
     def download(self, query: str) -> str:
-        if is_valid_url(query):
+        if is_url(query):
             for downloader in self.url_downloaders:
                 if downloader.can_handle(query):
                     return downloader.download_track(query)

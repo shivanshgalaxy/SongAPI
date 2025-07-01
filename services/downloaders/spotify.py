@@ -19,8 +19,8 @@ class SpotifyDownloader(UrlDownloader):
         song_id = extract_spotify_id(url)
         song_data = self.metadata_provider.get_metadata(song_id)
         print(json.dumps(song_data, indent=4))
-        song_artist = song_data["artists"][0]["name"]
-        song_title = song_data["name"]
+        song_artist = song_data["artist"]
+        song_title = song_data["title"]
         return self.query_downloader.download_track(f"{song_artist} {song_title}")
 
     def get_type(self, url: str) -> str:

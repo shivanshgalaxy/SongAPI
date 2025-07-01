@@ -7,7 +7,7 @@ from services.metadata.spotify_metadata_provider import SpotifyMetadataProvider
 from services.spotify_auth import get_token
 from services.downloaders.spotify import SpotifyDownloader
 from services.downloaders.youtube import YouTubeDownloader
-from services.metadata.spotify_song_id import SpotifySearchService, SongIDService
+from services.metadata.spotify_song_id import SongIDService
 import yt_dlp
 
 load_dotenv()
