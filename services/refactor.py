@@ -5,7 +5,7 @@ import requests
 from dotenv import load_dotenv
 from services.downloader_manager import DownloaderManager
 from services.downloaders.query import QueryDownloader
-from services.metadata.metadata_manger import MetadataManager
+from services.metadata_manger import MetadataManager
 from services.metadata.metadata_writer import MetadataWriter
 from services.metadata.spotify_metadata_provider import SpotifyMetadataProvider
 from services.metadata.youtube_metadata_provider import YoutubeMetadataProvider
@@ -15,6 +15,7 @@ from services.downloaders.youtube import YouTubeDownloader
 from services.metadata.spotify_song_id import SongIDService
 from PIL import Image
 from io import BytesIO
+from pathlib import Path
 
 load_dotenv()
 
@@ -26,8 +27,8 @@ def download_song(song_name: str) -> str | None:
     spotify_metadata_provider = SpotifyMetadataProvider(token)
     youtube_metadata_provider = YoutubeMetadataProvider()
 
-
-    youtube_downloader = YouTubeDownloader()
+    project_root = Path(__file__).parent.parent.resolve()
+    youtube_downloader = YouTubeDownloader(project_root)
     query_downloader = QueryDownloader(youtube_downloader)
     spotify_downloader = SpotifyDownloader(spotify_metadata_provider, query_downloader)
     url_downloaders = [spotify_downloader, youtube_downloader]
@@ -66,3 +67,4 @@ def download_song(song_name: str) -> str | None:
 
     return path
 
+download_song("paint it black")

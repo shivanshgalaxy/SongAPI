@@ -34,7 +34,22 @@ class YouTubeDownloader(UrlDownloader):
         return output_path
 
     def get_type(self, url: str) -> str:
-        pass
+        if 'playlist' in url or 'list=' in url:
+            return "playlist"
+        elif re.match(r"https?://(www\.)?(youtube\.com|youtu\.be)/watch", url):
+            return "track"
+        else:
+            return "unknown"
 
     def extract_track_from_playlist(self, url: str) -> list[str]:
-        pass
+        ydl_opts = {'quiet': True, 'extract_flat': True, 'skip_download': True}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            entries = info.get('entries', [])
+            video_urls = []
+            for entry in entries:
+                if 'url' in entry:
+                    video_urls.append(f"https://www.youtube.com/watch?v={entry['url']}")
+                elif 'id' in entry:
+                    video_urls.append(f"https://www.youtube.com/watch?v={entry['id']}")
+            return video_urls

@@ -4,6 +4,7 @@ import json
 from services.interfaces.metadata_providers import MetadataProvider
 from services.interfaces.downloader import UrlDownloader, SearchableDownloader
 from services.metadata.spotify_song_id import SongIDService
+import requests
 
 load_dotenv()
 
@@ -23,7 +24,37 @@ class SpotifyDownloader(UrlDownloader):
         return self.query_downloader.download_track(f"{song_artist} {song_title}")
 
     def get_type(self, url: str) -> str:
-        pass
+        if re.match(r"https?://open\.spotify\.com/track/", url):
+            return "track"
+        elif re.match(r"https?://open\.spotify\.com/playlist/", url):
+            return "playlist"
+        else:
+            return "unknown"
 
     def extract_track_from_playlist(self, url: str) -> list[str]:
-        pass
+        playlist_id_match = re.match(r"https?://open\.spotify\.com/playlist/([a-zA-Z0-9]+)", url)
+        if not playlist_id_match:
+            return []
+        playlist_id = playlist_id_match.group(1)
+        token = self.metadata_provider.token if hasattr(self.metadata_provider, 'token') else None
+        if not token:
+            raise ValueError("Spotify API token required for playlist extraction.")
+        headers = {"Authorization": f"Bearer {token}"}
+        tracks = []
+        offset = 0
+        while True:
+            api_url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks?offset={offset}&limit=100"
+            resp = requests.get(api_url, headers=headers)
+            if resp.status_code != 200:
+                break
+            data = resp.json()
+            items = data.get("items", [])
+            for item in items:
+                track = item.get("track")
+                if track and track.get("id"):
+                    tracks.append(track["id"])
+            if not data.get("next"):
+                break
+            offset += 100
+        return tracks
+

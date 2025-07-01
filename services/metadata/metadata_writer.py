@@ -3,15 +3,17 @@ from mutagen.easyid3 import EasyID3
 from mutagen.id3 import APIC
 
 class MetadataWriter:
-    def write_metadata(self, filepath: str, metadata: dict) -> None:
+    @staticmethod
+    def write_metadata(filepath: str, metadata: dict) -> None:
         audio = EasyMP3(filepath)
         audio.delete()
         for key, value in metadata.items():
             if key in EasyID3.valid_keys.keys():
                 audio[key] = value
-        audio.save()
+        audio.save(v2_version=3)
 
-    def write_album_art(self, filepath: str, image_path: str) -> None:
+    @staticmethod
+    def write_album_art(filepath: str, image_path: str) -> None:
         audio = MP3(filepath)
         print(image_path)
         with open(image_path, 'rb') as img:
@@ -24,4 +26,4 @@ class MetadataWriter:
                     data=img.read()
                 )
             )
-        audio.save()
+        audio.save(v2_version=3)

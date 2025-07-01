@@ -3,13 +3,15 @@ from requests import post
 import os
 import json
 import time
+from pathlib import Path
 
-TOKEN_FILE = "token.json"
+TOKEN_FILE = str(Path.home() / ".config" / "SongDownloader" / "token.json")
 TOKEN_URL = "https://accounts.spotify.com/api/token"
 CONTENT_TYPE = "application/x-www-form-urlencoded"
 
 
 def save_token(token: str, expires_in: int) -> None:
+    Path(TOKEN_FILE).parent.mkdir(parents=True, exist_ok=True)
     data = {
         "access_token": token,
         "expires_at": time.time() + expires_in - 60
@@ -50,3 +52,4 @@ def get_token(client_id: str, client_secret: str) -> str:
         raise ValueError("Failed to retrieve access token from Spotify API.")
     save_token(token, json_result.get("expires_in", 3600)) # Token expires in 1 hour (default value)
     return token
+
