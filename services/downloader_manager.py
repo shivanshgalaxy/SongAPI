@@ -1,5 +1,5 @@
 from typing import List
-from services.interfaces.downloader_interfaces import UrlDownloader, SearchableDownloader
+from services.interfaces.downloader import UrlDownloader, SearchableDownloader
 from utils.validation_utils import is_valid_url
 
 

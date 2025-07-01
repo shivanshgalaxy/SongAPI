@@ -1,5 +1,5 @@
 import sys
-from services.interfaces.metadata_providers_interface import MetadataProvider
+from services.interfaces.metadata_providers import MetadataProvider
 from requests import get
 
 class SpotifyMetadataProvider(MetadataProvider):

@@ -1,4 +1,4 @@
-from services.interfaces.metadata_providers_interface import MetadataProvider
+from services.interfaces.metadata_providers import MetadataProvider
 from services.metadata.metadata_writer import MetadataWriter
 
 

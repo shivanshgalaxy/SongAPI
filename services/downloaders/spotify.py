@@ -1,8 +1,8 @@
 import re
 from dotenv import load_dotenv
 import json
-from services.interfaces.metadata_providers_interface import MetadataProvider
-from services.interfaces.downloader_interfaces import UrlDownloader, SearchableDownloader
+from services.interfaces.metadata_providers import MetadataProvider
+from services.interfaces.downloader import UrlDownloader, SearchableDownloader
 from utils.validation_utils import extract_spotify_id
 
 load_dotenv()

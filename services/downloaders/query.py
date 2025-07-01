@@ -1,4 +1,4 @@
-from services.interfaces.downloader_interfaces import SearchableDownloader, UrlDownloader
+from services.interfaces.downloader import SearchableDownloader, UrlDownloader
 from ytmusicapi import YTMusic
 
 class QueryDownloader(SearchableDownloader):

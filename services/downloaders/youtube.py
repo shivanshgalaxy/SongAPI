@@ -1,6 +1,6 @@
 import re
 from utils.validation_utils import sanitize_filename
-from services.interfaces.downloader_interfaces import UrlDownloader
+from services.interfaces.downloader import UrlDownloader
 import yt_dlp
 
 

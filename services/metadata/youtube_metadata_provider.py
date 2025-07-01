@@ -1,5 +1,5 @@
 import yt_dlp
-from services.interfaces.metadata_providers_interface import MetadataProvider
+from services.interfaces.metadata_providers import MetadataProvider
 import sys
 
 
