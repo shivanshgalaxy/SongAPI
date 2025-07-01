@@ -10,7 +10,7 @@ class SongIDService:
 
     @staticmethod
     def extract_spotify_track_id(url: str) -> str | None:
-        match = re.match(r"https?://open\.spotify\.com/track/([a-zA-Z0-9]+)", url)
+        match = re.match(r"spotify\.com/(?:track|album|playlist|artist)/([a-zA-Z0-9]+)", url)
         if match:
             return match.group(1)
         return None

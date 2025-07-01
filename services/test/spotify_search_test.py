@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from services.metadata.metadata import MetadataManager
+from services.metadata.metadata_manger import MetadataManager
 from services.metadata.metadata_writer import MetadataWriter
 from services.metadata.spotify_metadata_provider import SpotifyMetadataProvider
 from services.metadata.spotify_song_id import SongIDService
