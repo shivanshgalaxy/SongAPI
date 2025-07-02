@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import json
 from services.interfaces.metadata_providers import MetadataProvider
 from services.interfaces.downloader import UrlDownloader, SearchableDownloader
-from services.metadata.spotify_song_id import SongIDService
+from services.metadata.song_id import SongIDService
 import requests
 
 load_dotenv()
